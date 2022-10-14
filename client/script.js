@@ -208,3 +208,32 @@ queryButton.addEventListener("click", getRequest)
 */
 
 // CODE HERE 
+const foodListener=document.querySelector('form');
+
+function createFood(event){
+    event.preventDefault();
+    const input= document.querySelector('input')
+    const newFood=input.value
+    body = {
+        newFood 
+    }
+    body.newFood=input.value
+    console.log(body.newFood)
+    axios.post('http://localhost:3000/food/',body)
+    .then((response)=>{
+        const parent = document.querySelector('section')
+        for (let i = 0; i< response.data.length; i++){
+            let food = document.createElement('p');
+            food.textContent = response.data[i];
+            document.querySelector('body').appendChild(food)
+        }
+
+         console.log(response)
+    })
+    .catch((response)=>{console.log("error")
+console.log(response)})
+
+}
+
+
+foodListener.addEventListener('submit', createFood)
